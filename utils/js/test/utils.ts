@@ -1,8 +1,10 @@
 /* tslint:disable: no-shadowed-variable */
 import playwright, { chromium, webkit, firefox } from 'playwright';
-import fg from 'fast-glob';
 
+import AmauiSubscription from '@amaui/subscription';
 import { TMethod } from '@amaui/models';
+
+import AmauiLog from '../../../src';
 
 export type TType = 'chromium' | 'firefox' | 'webkit';
 
@@ -104,22 +106,15 @@ export const evaluate = async (
 ): Promise<any> => {
   const responses: any = [];
 
+  if (!options.browsers) options.browsers = utils.browsers;
+
   for (const key of Object.keys(options.browsers || {})) {
     const browser: IBrowser = options.browsers && options.browsers[key];
 
+    // Reset
+    await browser.page.reload();
+
     const window = await browser.page?.evaluateHandle(() => window);
-
-    // Remove prod scripts
-    await browser.page.evaluateHandle((window: Window) => {
-      const scripts = window.document.getElementsByTagName('script');
-
-      Array.from(scripts).filter(script => script.src.indexOf('localhost') > -1).forEach(script => script.parentElement.removeChild(script));
-    }, window);
-
-    // Add prod scripts
-    const paths = (await fg('build/umd/*.prod.min.js', { onlyFiles: true }));
-
-    for (const value of paths) await browser.page.addScriptTag({ url: value });
 
     const args = options.arguments?.length ? [window, ...options.arguments] : window;
 
@@ -158,3 +153,25 @@ export const closeBrowser = async (browser: IBrowser, name?: string): Promise<vo
 export const closeBrowsers = async (browsers: IBrowsers): Promise<void> => {
   if (browsers) for (const browser of Object.keys(browsers)) await closeBrowser(browsers[browser], browser);
 };
+
+interface IUtils {
+  browsers?: IBrowsers;
+}
+
+export const utils: IUtils = {};
+
+preAll(async () => utils.browsers = await startBrowsers());
+
+preEveryTo(async () => {
+  // Add AmauiLog global variants
+  AmauiLog.variantsDefault.forEach(variant => AmauiLog.variants[variant.name] = {
+    ...variant,
+    pre: { subscription: new AmauiSubscription() },
+    post: { subscription: new AmauiSubscription() },
+  });
+
+  // Archive clear
+  AmauiLog.archiveClear();
+});
+
+postAll(async () => await closeBrowsers(utils.browsers as IBrowsers));
