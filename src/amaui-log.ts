@@ -1,7 +1,12 @@
-import { is, isEnvironment, merge, copy, stringify } from '@amaui/utils';
-import { TMethod } from '@amaui/models';
-import { AmauiDate, format } from '@amaui/date';
+import is from '@amaui/utils/is';
+import isEnvironment from '@amaui/utils/isEnvironment';
+import merge from '@amaui/utils/merge';
+import copy from '@amaui/utils/copy';
+import stringify from '@amaui/utils/stringify';
+import AmauiDate from '@amaui/date/amaui-date';
+import format from '@amaui/date/format';
 import AmauiSubscription from '@amaui/subscription';
+import { TMethod } from '@amaui/models';
 
 export type TVariant = 'log' | 'debug' | 'info' | 'warn' | 'error' | 'important';
 

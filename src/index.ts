@@ -1,3 +1,1 @@
-import { default as AmauiLog } from './amaui-log';
-
-export default AmauiLog;
+export { default } from './amaui-log';
