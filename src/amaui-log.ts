@@ -92,6 +92,8 @@ interface ILog {
 export interface IAmauiLog {
   variants: IAmauiLogVariants;
   options: IAmauiLogOptions;
+  // Extendable to add new properties, methods
+  [property: string]: any;
 }
 
 const amalogOptionsDefault: IAmauiLogOptions = {

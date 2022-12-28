@@ -53,7 +53,7 @@
 
   // Make a new log instance
   // with an optional options value
-  const amauiSub = new AmauiLog({
+  const amauiLog = new AmauiLog({
     arguments: {
       pre: [
         'Mongo',
@@ -62,7 +62,7 @@
   });
 
   // Log any array of values
-  amauiSub.info(`Collection: A`, `Response: 40ms`);
+  amauiLog.info(`Collection: A`, `Response: 40ms`);
 
   // Output
 
