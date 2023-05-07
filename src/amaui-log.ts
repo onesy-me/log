@@ -17,46 +17,60 @@ export interface IAmauiLogVariantColor {
   server: string;
 }
 
+export interface IAmauiLogVariantPre {
+  subscription: AmauiSubscription;
+}
+
+export interface IAmauiLogVariantPost {
+  subscription: AmauiSubscription;
+}
+
 export interface IAmauiLogVariant {
   name: 'log' | TVariant;
   prefix?: any;
   sufix?: any;
   color?: IAmauiLogVariantColor;
-  pre?: {
-    subscription: AmauiSubscription;
-  };
-  post?: {
-    subscription: AmauiSubscription;
-  };
+  pre?: IAmauiLogVariantPre;
+  post?: IAmauiLogVariantPost;
 }
 
 export type IAmauiLogVariants = {
   [p in TVariant]?: IAmauiLogVariant;
 };
 
+export interface IAmauiLogOptionsLogPadding {
+  top?: boolean;
+  bottom?: boolean;
+}
+
+export interface IAmauiLogOptionsLog {
+  archive?: boolean;
+  enabled?: boolean;
+  native?: boolean;
+  variants?: Array<TVariant>;
+  padding?: IAmauiLogOptionsLogPadding;
+}
+
+export interface IAmauiLogOptionsArguments {
+  pre?: any[];
+  post?: any[];
+}
+
+export interface IAmauiLogOptionsDate {
+  add?: boolean;
+  method?: TMethod;
+}
+
+export interface IAmauiLogOptionsStringify {
+  method?: TMethod;
+}
+
 export interface IAmauiLogOptions {
-  log?: {
-    archive?: boolean;
-    enabled?: boolean;
-    native?: boolean;
-    variants?: Array<TVariant>;
-    padding?: {
-      top?: boolean;
-      bottom?: boolean;
-    };
-  };
-  arguments?: {
-    pre?: any[];
-    post?: any[];
-  };
+  log?: IAmauiLogOptionsLog;
+  arguments?: IAmauiLogOptionsArguments;
   variants?: IAmauiLogVariants;
-  date?: {
-    add?: boolean;
-    method?: TMethod;
-  };
-  stringify?: {
-    method?: TMethod;
-  };
+  date?: IAmauiLogOptionsDate;
+  stringify?: IAmauiLogOptionsStringify;
 }
 
 const optionsDefault: IAmauiLogOptions = {
