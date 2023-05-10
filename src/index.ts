@@ -1,1 +1,1 @@
-export { default } from './amaui-log';
+export { default } from './AmauiLog';

@@ -5,7 +5,7 @@ import { evaluate } from '../utils/js/test/utils';
 
 import AmauiLog from '../src';
 
-group('@amaui/log', () => {
+group('AmauiLog', () => {
 
   pre(async () => {
     AmauiLog.options.log.enabled = false;
