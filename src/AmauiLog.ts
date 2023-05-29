@@ -80,21 +80,21 @@ const optionsDefault: IAmauiLogOptions = {
     variants: variantNames,
     padding: {
       top: true,
-      bottom: true,
-    },
+      bottom: true
+    }
   },
   arguments: {
     pre: [],
-    post: [],
+    post: []
   },
   variants: {},
   date: {
     add: true,
-    method: () => format(AmauiDate.utc, `MM-DD-YYYY HH:mm:ss.SSS`),
+    method: () => format(AmauiDate.utc, `MM-DD-YYYY HH:mm:ss.SSS`)
   },
   stringify: {
-    method: stringify,
-  },
+    method: stringify
+  }
 };
 
 interface ILog {
