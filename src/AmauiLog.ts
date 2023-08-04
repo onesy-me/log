@@ -76,7 +76,7 @@ export interface IAmauiLogOptions {
 const optionsDefault: IAmauiLogOptions = {
   log: {
     enabled: true,
-    native: true,
+    native: false,
     variants: variantNames,
     padding: {
       top: true,
@@ -113,12 +113,12 @@ export interface IAmauiLog {
 const amalogOptionsDefault: IAmauiLogOptions = {
   log: {
     enabled: true,
-    native: true,
+    native: false,
     padding: {
       top: true,
-      bottom: true,
-    },
-  },
+      bottom: true
+    }
+  }
 };
 
 class AmauiLog implements IAmauiLog {

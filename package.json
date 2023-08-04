@@ -1,6 +1,6 @@
 {
   "name": "@amaui/log",
-  "version": "1.0.11145",
+  "version": "1.0.14",
   "description": "Log utils, very readable and clean logs",
   "repository": "https://github.com/amaui-org/amaui-log.git",
   "author": "Lazar <lazareric2@gmail.com>",
