@@ -3,7 +3,7 @@ import isEnvironment from '@amaui/utils/isEnvironment';
 import merge from '@amaui/utils/merge';
 import copy from '@amaui/utils/copy';
 import stringify from '@amaui/utils/stringify';
-import AmauiDate from '@amaui/date/amaui-date';
+import AmauiDate from '@amaui/date/AmauiDate';
 import format from '@amaui/date/format';
 import AmauiSubscription from '@amaui/subscription';
 import { TMethod } from '@amaui/models';
@@ -227,9 +227,9 @@ class AmauiLog implements IAmauiLog {
       logVariants.indexOf(variant_) > -1
     ) {
       // Pre methods run
-      if (variantLog !== variant) variantLog.pre.subscription.emit(...args);
+      if (variantLog !== variant) (variantLog.pre.subscription.emit as any)(...args);
 
-      variant.pre.subscription.emit(...args);
+      (variant.pre.subscription.emit as any)(...args);
 
       const dateMethod = is('function', this.options.date.method) && this.options.date.method;
 
@@ -324,9 +324,9 @@ class AmauiLog implements IAmauiLog {
       }
 
       // Post methods run
-      if (variantLog !== variant) variantLog.post.subscription.emit(...args);
+      if (variantLog !== variant) (variantLog.post.subscription.emit as any)(...args);
 
-      variant.post.subscription.emit(...args);
+      (variant.post.subscription.emit as any)(...args);
 
       // Archive
       if (AmauiLog.options.log.archive) AmauiLog.archive.push(output);
