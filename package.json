@@ -1,6 +1,6 @@
 {
   "name": "@amaui/log",
-  "version": "1.0.16",
+  "version": "1.0.19",
   "description": "Log utils, very readable and clean logs",
   "repository": "https://github.com/amaui-org/amaui-log.git",
   "author": "Lazar <lazareric2@gmail.com>",
@@ -41,7 +41,7 @@
   "dependencies": {
     "@amaui/date": "^1.1.11",
     "@amaui/subscription": "^1.0.5",
-    "@amaui/utils": "^1.1.18",
+    "@amaui/utils": "^1.1.23",
     "@babel/runtime": "^7.18.3"
   },
   "devDependencies": {

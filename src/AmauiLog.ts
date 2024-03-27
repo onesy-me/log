@@ -66,6 +66,7 @@ export interface IAmauiLogOptionsStringify {
 }
 
 export interface IAmauiLogOptions {
+  minimal?: boolean;
   log?: IAmauiLogOptionsLog;
   arguments?: IAmauiLogOptionsArguments;
   variants?: IAmauiLogVariants;
@@ -74,6 +75,7 @@ export interface IAmauiLogOptions {
 }
 
 const optionsDefault: IAmauiLogOptions = {
+  minimal: true,
   log: {
     enabled: true,
     native: false,
@@ -242,11 +244,13 @@ class AmauiLog implements IAmauiLog {
 
       const method = (logNative && console[variant_]) || console.log;
 
+      const space = this.options.minimal ? '\s' : '\n';
+
       // Log padding top
       let logPaddingTop = '';
 
       if (AmauiLog.options.log?.padding?.top && this.options.log?.padding?.top) {
-        logPaddingTop = (AmauiLog.options.log?.padding?.top && this.options.log?.padding?.top) ? '\n' : '';
+        logPaddingTop = (AmauiLog.options.log?.padding?.top && this.options.log?.padding?.top) ? space : '';
 
         if (isEnvironment('browser') && (logNative && ['error', 'warn'].indexOf(variant_) > -1)) logPaddingTop = '';
       }
@@ -271,22 +275,22 @@ class AmauiLog implements IAmauiLog {
           const isSimple = is('simple', argument);
 
           // Nice enter space/s above logged line
-          let item = index === 0 ? '\n\n' : '';
+          let item = index === 0 ? `${space}${space}` : '';
 
           const previous = index - 1 >= 0 && args[index - 1];
 
-          if (index !== 0 && previous && is('simple', previous) && !isSimple) item += `\n`;
+          if (index !== 0 && previous && is('simple', previous) && !isSimple) item += space;
 
           const stringifyMethod = is('function', this.options.stringify.method) && this.options.stringify.method;
 
-          if (argument instanceof Error) item += `${argument.message}\n\n${argument.stack}`;
+          if (argument instanceof Error) item += `${argument.message}${space}${space}${argument.stack}`;
           else item += isSimple ? argument : (stringifyMethod ? stringifyMethod(argument) : argument);
 
           // Nice enter space below logged line
           if (index !== args_.length - 1) {
-            item += `\n`;
+            item += space;
 
-            if (!isSimple) item += `\n`;
+            if (!isSimple) item += space;
           }
 
           return item;
@@ -297,10 +301,10 @@ class AmauiLog implements IAmauiLog {
       let logPaddingBottom = '';
 
       if (AmauiLog.options.log?.padding?.bottom && this.options.log?.padding?.bottom) {
-        if (isEnvironment('nodejs')) logPaddingBottom = '\n';
+        if (isEnvironment('nodejs')) logPaddingBottom = space;
 
         if (isEnvironment('browser')) {
-          logPaddingBottom = '\n\n';
+          logPaddingBottom = `${space}${space}`;
 
           if ((logNative && ['error', 'warn'].indexOf(variant_) > -1) && args_.length <= 1) logPaddingBottom = '';
         }
