@@ -1,6 +1,6 @@
 {
   "name": "@amaui/log",
-  "version": "1.0.19",
+  "version": "1.0.21",
   "description": "Log utils, very readable and clean logs",
   "repository": "https://github.com/amaui-org/amaui-log.git",
   "author": "Lazar <lazareric2@gmail.com>",
@@ -34,7 +34,7 @@
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "type": "tsc --noEmit -p tsconfig.json",
     "cov": "cross-env NODE_ENV=test amaui-test",
-    "test:pre": "pm2 update && pm2 delete all && pm2 start utils/js/test/app.js && wait-on http://localhost:4000",
+    "test:pre": "pm2 update && pm2 delete all && pm2 start utils/js/test/app.js && wait-on http://localhost:4114",
     "test:post": "pm2 delete all",
     "test": "yarn lint && yarn type && yarn build && yarn test:pre && yarn cov && yarn test:post"
   },

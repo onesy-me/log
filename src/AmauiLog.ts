@@ -244,7 +244,9 @@ class AmauiLog implements IAmauiLog {
 
       const method = (logNative && console[variant_]) || console.log;
 
-      const space = this.options.minimal ? '\s' : '\n';
+      const space = this.options.minimal ? ' ' : '\n';
+
+      const firstArgument = [];
 
       // Log padding top
       let logPaddingTop = '';
@@ -255,11 +257,15 @@ class AmauiLog implements IAmauiLog {
         if (isEnvironment('browser') && (logNative && ['error', 'warn'].indexOf(variant_) > -1)) logPaddingTop = '';
       }
 
-      const firstArgument = [
-        (date && `${logPaddingTop}${date} `) || logPaddingTop,
-      ];
+      if (date) {
+        firstArgument.push(`${logPaddingTop}${date}`);
+      }
 
-      firstArgument[0] += isEnvironment('browser') ? `%c${variant.prefix}${variant.name}${variant.sufix}: ` : `\x1b[${variant.color.server}m${variant.prefix}${variant.name}${variant.sufix}\x1b[0m: `;
+      if (!this.options.minimal && !date && logPaddingTop) {
+        firstArgument.push(logPaddingTop);
+      }
+
+      firstArgument[0] += isEnvironment('browser') ? `%c${variant.prefix}${variant.name}${variant.sufix}:` : `\x1b[${variant.color.server}m${variant.prefix}${variant.name}${variant.sufix}\x1b[0m:`;
 
       if (isEnvironment('browser')) firstArgument.push(`color: ${variant.color.browser}`);
 
@@ -275,7 +281,7 @@ class AmauiLog implements IAmauiLog {
           const isSimple = is('simple', argument);
 
           // Nice enter space/s above logged line
-          let item = index === 0 ? `${space}${space}` : '';
+          let item = index === 0 ? this.options.minimal ? space : `${space}${space}` : '';
 
           const previous = index - 1 >= 0 && args[index - 1];
 
@@ -310,9 +316,15 @@ class AmauiLog implements IAmauiLog {
         }
       }
 
-      if (logPaddingBottom) arguments_.push(logPaddingBottom);
+      if (!this.options.minimal && logPaddingBottom) arguments_.push(logPaddingBottom);
 
-      const allArguments = [...firstArgument, ([].concat(...arguments_)).join('')];
+      const allArguments = [...firstArgument, ([].concat(...arguments_)).join('')].map((item, index) => {
+        if (!index) {
+          if (this.options.minimal) return item.trimStart();
+        }
+
+        return item;
+      });
 
       // More for testing purposes
       const output = {
