@@ -258,7 +258,7 @@ class AmauiLog implements IAmauiLog {
       }
 
       if (date) {
-        firstArgument.push(`${logPaddingTop}${date}`);
+        firstArgument.push(`${logPaddingTop}${date} `);
       }
 
       if (!this.options.minimal && !date && logPaddingTop) {
