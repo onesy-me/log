@@ -2,7 +2,7 @@
   "name": "@onesy/log",
   "version": "1.0.0",
   "description": "Log utils, very readable and clean logs",
-  "repository": "https://github.com/onesy-org/onesy-log.git",
+  "repository": "https://github.com/onesy-me/log.git",
   "author": "Lazar <lazareric2@gmail.com>",
   "license": "MIT",
   "private": false,
