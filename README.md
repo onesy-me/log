@@ -4,11 +4,11 @@
 
 <p align='center'>
   <a target='_blank' rel='noopener noreferrer' href='#'>
-    <img src='utils/images/logo.svg' alt='amaui logo' />
+    <img src='utils/images/logo.svg' alt='onesy logo' />
   </a>
 </p>
 
-<h1 align='center'>amaui Log</h1>
+<h1 align='center'>onesy Log</h1>
 
 <p align='center'>
   Log utils, very readable and clean logs
@@ -39,17 +39,17 @@
 ### Add
 
 ```sh
-yarn add @amaui/log
+yarn add @onesy/log
 ```
 
 ### Use
 
 ```javascript
-  import AmauiLog from '@amaui/log';
+  import OnesyLog from '@onesy/log';
 
   // Make a new log instance
   // with an optional options value
-  const amauiLog = new AmauiLog({
+  const onesyLog = new OnesyLog({
     arguments: {
       pre: [
         'Mongo',
@@ -58,7 +58,7 @@ yarn add @amaui/log
   });
 
   // Log any array of values
-  amauiLog.info(`Collection: A`, `Response: 40ms`);
+  onesyLog.info(`Collection: A`, `Response: 40ms`);
 
   // Output
 

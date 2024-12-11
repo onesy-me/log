@@ -1,8 +1,8 @@
 {
-  "name": "@amaui/log",
+  "name": "@onesy/log",
   "version": "1.0.22",
   "description": "Log utils, very readable and clean logs",
-  "repository": "https://github.com/amaui-org/amaui-log.git",
+  "repository": "https://github.com/onesy-org/onesy-log.git",
   "author": "Lazar <lazareric2@gmail.com>",
   "license": "MIT",
   "private": false,
@@ -24,7 +24,7 @@
     "node",
     "nodejs",
     "library",
-    "amaui",
+    "onesy",
     "utils"
   ],
   "scripts": {
@@ -33,20 +33,20 @@
     "release": "yarn build && yarn version --patch --no-git-tag-version && yarn build && cd ./build && npm publish",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "type": "tsc --noEmit -p tsconfig.json",
-    "cov": "cross-env NODE_ENV=test amaui-test",
+    "cov": "cross-env NODE_ENV=test onesy-test",
     "test:pre": "pm2 update && pm2 delete all && pm2 start utils/js/test/app.js && wait-on http://localhost:4114",
     "test:post": "pm2 delete all",
     "test": "yarn lint && yarn type && yarn build && yarn test:pre && yarn cov && yarn test:post"
   },
   "dependencies": {
-    "@amaui/date": "^1.1.11",
-    "@amaui/subscription": "^1.0.5",
-    "@amaui/utils": "^1.1.23",
+    "@onesy/date": "^1.1.11",
+    "@onesy/subscription": "^1.0.5",
+    "@onesy/utils": "^1.1.23",
     "@babel/runtime": "^7.18.3"
   },
   "devDependencies": {
-    "@amaui/models": "^1.0.11",
-    "@amaui/test": "^1.0.1141",
+    "@onesy/models": "^1.0.11",
+    "@onesy/test": "^1.0.1141",
     "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/plugin-proposal-class-properties": "^7.17.12",

@@ -1,10 +1,10 @@
 /* tslint:disable: no-shadowed-variable */
 import playwright, { chromium, webkit, firefox } from 'playwright';
 
-import AmauiSubscription from '@amaui/subscription';
-import { TMethod } from '@amaui/models';
+import OnesySubscription from '@onesy/subscription';
+import { TMethod } from '@onesy/models';
 
-import AmauiLog from '../../../src';
+import OnesyLog from '../../../src';
 
 export type TType = 'chromium' | 'firefox' | 'webkit';
 
@@ -163,15 +163,15 @@ export const utils: IUtils = {};
 preAll(async () => utils.browsers = await startBrowsers());
 
 preEveryTo(async () => {
-  // Add AmauiLog global variants
-  AmauiLog.variantsDefault.forEach(variant => AmauiLog.variants[variant.name] = {
+  // Add OnesyLog global variants
+  OnesyLog.variantsDefault.forEach(variant => OnesyLog.variants[variant.name] = {
     ...variant,
-    pre: { subscription: new AmauiSubscription() },
-    post: { subscription: new AmauiSubscription() },
+    pre: { subscription: new OnesySubscription() },
+    post: { subscription: new OnesySubscription() },
   });
 
   // Archive clear
-  AmauiLog.archiveClear();
+  OnesyLog.archiveClear();
 });
 
 postAll(async () => await closeBrowsers(utils.browsers as IBrowsers));

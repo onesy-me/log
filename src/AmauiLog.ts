@@ -1,80 +1,80 @@
-import is from '@amaui/utils/is';
-import isEnvironment from '@amaui/utils/isEnvironment';
-import merge from '@amaui/utils/merge';
-import copy from '@amaui/utils/copy';
-import stringify from '@amaui/utils/stringify';
-import AmauiDate from '@amaui/date/AmauiDate';
-import format from '@amaui/date/format';
-import AmauiSubscription from '@amaui/subscription';
-import { TMethod } from '@amaui/models';
+import is from '@onesy/utils/is';
+import isEnvironment from '@onesy/utils/isEnvironment';
+import merge from '@onesy/utils/merge';
+import copy from '@onesy/utils/copy';
+import stringify from '@onesy/utils/stringify';
+import OnesyDate from '@onesy/date/OnesyDate';
+import format from '@onesy/date/format';
+import OnesySubscription from '@onesy/subscription';
+import { TMethod } from '@onesy/models';
 
 export type TVariant = 'log' | 'debug' | 'info' | 'warn' | 'error' | 'important';
 
 export const variantNames: Array<TVariant> = ['log', 'debug', 'info', 'warn', 'error', 'important'];
 
-export interface IAmauiLogVariantColor {
+export interface IOnesyLogVariantColor {
   browser: string;
   server: string;
 }
 
-export interface IAmauiLogVariantPre {
-  subscription: AmauiSubscription;
+export interface IOnesyLogVariantPre {
+  subscription: OnesySubscription;
 }
 
-export interface IAmauiLogVariantPost {
-  subscription: AmauiSubscription;
+export interface IOnesyLogVariantPost {
+  subscription: OnesySubscription;
 }
 
-export interface IAmauiLogVariant {
+export interface IOnesyLogVariant {
   name: 'log' | TVariant;
   prefix?: any;
   sufix?: any;
-  color?: IAmauiLogVariantColor;
-  pre?: IAmauiLogVariantPre;
-  post?: IAmauiLogVariantPost;
+  color?: IOnesyLogVariantColor;
+  pre?: IOnesyLogVariantPre;
+  post?: IOnesyLogVariantPost;
 }
 
-export type IAmauiLogVariants = {
-  [p in TVariant]?: IAmauiLogVariant;
+export type IOnesyLogVariants = {
+  [p in TVariant]?: IOnesyLogVariant;
 };
 
-export interface IAmauiLogOptionsLogPadding {
+export interface IOnesyLogOptionsLogPadding {
   top?: boolean;
   bottom?: boolean;
 }
 
-export interface IAmauiLogOptionsLog {
+export interface IOnesyLogOptionsLog {
   archive?: boolean;
   enabled?: boolean;
   native?: boolean;
   variants?: Array<TVariant>;
-  padding?: IAmauiLogOptionsLogPadding;
+  padding?: IOnesyLogOptionsLogPadding;
 }
 
-export interface IAmauiLogOptionsArguments {
+export interface IOnesyLogOptionsArguments {
   pre?: any[];
   post?: any[];
 }
 
-export interface IAmauiLogOptionsDate {
+export interface IOnesyLogOptionsDate {
   add?: boolean;
   method?: TMethod;
 }
 
-export interface IAmauiLogOptionsStringify {
+export interface IOnesyLogOptionsStringify {
   method?: TMethod;
 }
 
-export interface IAmauiLogOptions {
+export interface IOnesyLogOptions {
   minimal?: boolean;
-  log?: IAmauiLogOptionsLog;
-  arguments?: IAmauiLogOptionsArguments;
-  variants?: IAmauiLogVariants;
-  date?: IAmauiLogOptionsDate;
-  stringify?: IAmauiLogOptionsStringify;
+  log?: IOnesyLogOptionsLog;
+  arguments?: IOnesyLogOptionsArguments;
+  variants?: IOnesyLogVariants;
+  date?: IOnesyLogOptionsDate;
+  stringify?: IOnesyLogOptionsStringify;
 }
 
-const optionsDefault: IAmauiLogOptions = {
+const optionsDefault: IOnesyLogOptions = {
   minimal: true,
   log: {
     enabled: true,
@@ -92,7 +92,7 @@ const optionsDefault: IAmauiLogOptions = {
   variants: {},
   date: {
     add: true,
-    method: () => format(AmauiDate.utc, `MM-DD-YYYY HH:mm:ss.SSS`)
+    method: () => format(OnesyDate.utc, `MM-DD-YYYY HH:mm:ss.SSS`)
   },
   stringify: {
     method: stringify
@@ -105,14 +105,14 @@ interface ILog {
   logged: boolean;
 }
 
-export interface IAmauiLog {
-  variants: IAmauiLogVariants;
-  options: IAmauiLogOptions;
+export interface IOnesyLog {
+  variants: IOnesyLogVariants;
+  options: IOnesyLogOptions;
   // Extendable to add new properties, methods
   [property: string]: any;
 }
 
-const amalogOptionsDefault: IAmauiLogOptions = {
+const amalogOptionsDefault: IOnesyLogOptions = {
   log: {
     enabled: true,
     native: false,
@@ -123,39 +123,39 @@ const amalogOptionsDefault: IAmauiLogOptions = {
   }
 };
 
-class AmauiLog implements IAmauiLog {
-  public variants: IAmauiLogVariants = {};
+class OnesyLog implements IOnesyLog {
+  public variants: IOnesyLogVariants = {};
   public archive = [];
 
   // Able to control some behavior globally
-  public static options: IAmauiLogOptions = copy(amalogOptionsDefault);
+  public static options: IOnesyLogOptions = copy(amalogOptionsDefault);
 
-  public static variants: IAmauiLogVariants = {};
+  public static variants: IOnesyLogVariants = {};
 
   public static archive = [];
 
   public static archiveClear(): void {
-    this.debug('AmauiLog archive cleared');
+    this.debug('OnesyLog archive cleared');
 
     this.archive = [];
   }
 
-  public static get amauilog(): AmauiLog { return new AmauiLog(); }
+  public static get onesylog(): OnesyLog { return new OnesyLog(); }
 
-  public static log(variant_: TVariant = 'debug', ...args: any[]) { return new AmauiLog().log(variant_, ...args); }
+  public static log(variant_: TVariant = 'debug', ...args: any[]) { return new OnesyLog().log(variant_, ...args); }
 
-  public static debug(...args: any[]) { return new AmauiLog().debug(...args); }
+  public static debug(...args: any[]) { return new OnesyLog().debug(...args); }
 
-  public static info(...args: any[]) { return new AmauiLog().info(...args); }
+  public static info(...args: any[]) { return new OnesyLog().info(...args); }
 
-  public static warn(...args: any[]) { return new AmauiLog().warn(...args); }
+  public static warn(...args: any[]) { return new OnesyLog().warn(...args); }
 
-  public static error(...args: any[]) { return new AmauiLog().error(...args); }
+  public static error(...args: any[]) { return new OnesyLog().error(...args); }
 
-  public static important(...args: any[]) { return new AmauiLog().important(...args); }
+  public static important(...args: any[]) { return new OnesyLog().important(...args); }
 
-  public static color(value: any, color: string = 'green', options?: IAmauiLogVariantColor): Array<string> {
-    let colorValues: IAmauiLogVariantColor;
+  public static color(value: any, color: string = 'green', options?: IOnesyLogVariantColor): Array<string> {
+    let colorValues: IOnesyLogVariantColor;
 
     switch (color) {
       case 'blue':
@@ -192,7 +192,7 @@ class AmauiLog implements IAmauiLog {
     return variantNames;
   }
 
-  public static get variantsDefault(): Array<IAmauiLogVariant> {
+  public static get variantsDefault(): Array<IOnesyLogVariant> {
     return [
       { name: 'log', prefix: '(', sufix: ')', color: { browser: '#0b9fc3', server: '36' } },
       { name: 'debug', prefix: '(', sufix: ')', color: { browser: '#0b9fc3', server: '36' } },
@@ -203,7 +203,7 @@ class AmauiLog implements IAmauiLog {
     ];
   }
 
-  public constructor(public options: IAmauiLogOptions = optionsDefault) {
+  public constructor(public options: IOnesyLogOptions = optionsDefault) {
     this.options = merge(options, optionsDefault);
 
     // Set all variants
@@ -212,17 +212,17 @@ class AmauiLog implements IAmauiLog {
 
       this.variants[variant.name] = {
         ...variant,
-        pre: { subscription: new AmauiSubscription() },
-        post: { subscription: new AmauiSubscription() },
+        pre: { subscription: new OnesySubscription() },
+        post: { subscription: new OnesySubscription() },
       };
     });
   }
 
   public log(variant_: TVariant = 'debug', ...args: any[]): ILog {
-    const variantLog = AmauiLog.variants.log || this.variants.log;
-    const variant = this.variants[variant_] || AmauiLog.variants[variant_] || variantLog;
+    const variantLog = OnesyLog.variants.log || this.variants.log;
+    const variant = this.variants[variant_] || OnesyLog.variants[variant_] || variantLog;
 
-    const logVariants = AmauiLog.options.log?.variants || this.options.log.variants;
+    const logVariants = OnesyLog.options.log?.variants || this.options.log.variants;
 
     if (
       variant &&
@@ -240,7 +240,7 @@ class AmauiLog implements IAmauiLog {
       const arguments_ = [];
 
       // Log
-      const logNative = AmauiLog.options.log.native && this.options.log.native;
+      const logNative = OnesyLog.options.log.native && this.options.log.native;
 
       const method = (logNative && console[variant_]) || console.log;
 
@@ -251,8 +251,8 @@ class AmauiLog implements IAmauiLog {
       // Log padding top
       let logPaddingTop = '';
 
-      if (AmauiLog.options.log?.padding?.top && this.options.log?.padding?.top) {
-        logPaddingTop = (AmauiLog.options.log?.padding?.top && this.options.log?.padding?.top) ? space : '';
+      if (OnesyLog.options.log?.padding?.top && this.options.log?.padding?.top) {
+        logPaddingTop = (OnesyLog.options.log?.padding?.top && this.options.log?.padding?.top) ? space : '';
 
         if (isEnvironment('browser') && (logNative && ['error', 'warn'].indexOf(variant_) > -1)) logPaddingTop = '';
       }
@@ -306,7 +306,7 @@ class AmauiLog implements IAmauiLog {
       // Log padding bottom
       let logPaddingBottom = '';
 
-      if (AmauiLog.options.log?.padding?.bottom && this.options.log?.padding?.bottom) {
+      if (OnesyLog.options.log?.padding?.bottom && this.options.log?.padding?.bottom) {
         if (isEnvironment('nodejs')) logPaddingBottom = space;
 
         if (isEnvironment('browser')) {
@@ -333,7 +333,7 @@ class AmauiLog implements IAmauiLog {
         logged: false,
       };
 
-      if (AmauiLog.options.log.enabled && this.options.log.enabled) {
+      if (OnesyLog.options.log.enabled && this.options.log.enabled) {
         method(...allArguments);
 
         output.logged = true;
@@ -345,7 +345,7 @@ class AmauiLog implements IAmauiLog {
       (variant.post.subscription.emit as any)(...args);
 
       // Archive
-      if (AmauiLog.options.log.archive) AmauiLog.archive.push(output);
+      if (OnesyLog.options.log.archive) OnesyLog.archive.push(output);
 
       if (this.options.log.archive) this.archive.push(output);
 
@@ -385,22 +385,22 @@ class AmauiLog implements IAmauiLog {
   }
 
   public static reset(): void {
-    AmauiLog.options = copy(amalogOptionsDefault);
+    OnesyLog.options = copy(amalogOptionsDefault);
 
-    // Add AmauiLog global variants
-    AmauiLog.variantsDefault.forEach(variant => AmauiLog.variants[variant.name] = {
+    // Add OnesyLog global variants
+    OnesyLog.variantsDefault.forEach(variant => OnesyLog.variants[variant.name] = {
       ...variant,
-      pre: { subscription: new AmauiSubscription() },
-      post: { subscription: new AmauiSubscription() },
+      pre: { subscription: new OnesySubscription() },
+      post: { subscription: new OnesySubscription() },
     });
   }
 }
 
-// Add AmauiLog global variants
-AmauiLog.variantsDefault.forEach(variant => AmauiLog.variants[variant.name] = {
+// Add OnesyLog global variants
+OnesyLog.variantsDefault.forEach(variant => OnesyLog.variants[variant.name] = {
   ...variant,
-  pre: { subscription: new AmauiSubscription() },
-  post: { subscription: new AmauiSubscription() },
+  pre: { subscription: new OnesySubscription() },
+  post: { subscription: new OnesySubscription() },
 });
 
-export default AmauiLog;
+export default OnesyLog;

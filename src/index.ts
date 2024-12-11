@@ -1,1 +1,1 @@
-export { default } from './AmauiLog';
+export { default } from './OnesyLog';

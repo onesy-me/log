@@ -1,35 +1,35 @@
 /* tslint:disable: no-shadowed-variable */
-import { assert } from '@amaui/test';
+import { assert } from '@onesy/test';
 
 import { evaluate } from '../utils/js/test/utils';
 
-import AmauiLog from '../src';
+import OnesyLog from '../src';
 
-group('AmauiLog', () => {
+group('OnesyLog', () => {
 
   pre(async () => {
-    AmauiLog.options.log.enabled = false;
+    OnesyLog.options.log.enabled = false;
   });
 
   post(async () => {
-    AmauiLog.options.log.enabled = true;
+    OnesyLog.options.log.enabled = true;
   });
 
-  preEveryGroupTo(() => AmauiLog.reset());
+  preEveryGroupTo(() => OnesyLog.reset());
 
-  group('AmauiLog', () => {
+  group('OnesyLog', () => {
 
     group('log', () => {
 
       to('archive', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          (window.AmauiLog.options.log.archive = true) && window.AmauiLog.info('a') && window.AmauiLog.archive.length,
-          (window.AmauiLog.options.log.archive = false) && window.AmauiLog.info('a') && window.AmauiLog.archive.length,
+          (window.OnesyLog.options.log.archive = true) && window.OnesyLog.info('a') && window.OnesyLog.archive.length,
+          (window.OnesyLog.options.log.archive = false) && window.OnesyLog.info('a') && window.OnesyLog.archive.length,
         ]);
 
         const valueNode = [
-          (AmauiLog.options.log.archive = true) && AmauiLog.info('a') && AmauiLog.archive.length,
-          (AmauiLog.options.log.archive = false) && AmauiLog.info('a') && AmauiLog.archive.length,
+          (OnesyLog.options.log.archive = true) && OnesyLog.info('a') && OnesyLog.archive.length,
+          (OnesyLog.options.log.archive = false) && OnesyLog.info('a') && OnesyLog.archive.length,
         ];
 
         const values = [valueNode, ...valueBrowsers];
@@ -42,13 +42,13 @@ group('AmauiLog', () => {
 
       to('enabled', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          (window.AmauiLog.options.log.enabled = true) && new window.AmauiLog().info('a').logged,
-          (window.AmauiLog.options.log.enabled = false) && new window.AmauiLog().info('a').logged,
+          (window.OnesyLog.options.log.enabled = true) && new window.OnesyLog().info('a').logged,
+          (window.OnesyLog.options.log.enabled = false) && new window.OnesyLog().info('a').logged,
         ]);
 
         const valueNode = [
-          (AmauiLog.options.log.enabled = true) && new AmauiLog().info('a').logged,
-          (AmauiLog.options.log.enabled = false) && new AmauiLog().info('a').logged,
+          (OnesyLog.options.log.enabled = true) && new OnesyLog().info('a').logged,
+          (OnesyLog.options.log.enabled = false) && new OnesyLog().info('a').logged,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -67,26 +67,26 @@ group('AmauiLog', () => {
         const valueBrowsers = await evaluate((window: any) => {
           const result = [];
 
-          window.AmauiLog.options.log.native = true;
+          window.OnesyLog.options.log.native = true;
 
-          result.push(new window.AmauiLog().info('a').method === console.info);
+          result.push(new window.OnesyLog().info('a').method === console.info);
 
-          window.AmauiLog.options.log.native = false;
+          window.OnesyLog.options.log.native = false;
 
-          result.push(new window.AmauiLog().info('a').method === console.log);
+          result.push(new window.OnesyLog().info('a').method === console.log);
 
           return result;
         });
 
         const result = [];
 
-        AmauiLog.options.log.native = true;
+        OnesyLog.options.log.native = true;
 
-        result.push(new AmauiLog().info('a').method === console.info);
+        result.push(new OnesyLog().info('a').method === console.info);
 
-        AmauiLog.options.log.native = false;
+        OnesyLog.options.log.native = false;
 
-        result.push(new AmauiLog().info('a').method === console.log);
+        result.push(new OnesyLog().info('a').method === console.log);
 
         const valueNode = result;
 
@@ -102,16 +102,16 @@ group('AmauiLog', () => {
       });
 
       to('variants', async () => {
-        AmauiLog.options.log.enabled = true;
+        OnesyLog.options.log.enabled = true;
 
         const valueBrowsers = await evaluate((window: any) => [
-          (window.AmauiLog.options.log.variants = ['info']) && new window.AmauiLog().info('a').logged,
-          (window.AmauiLog.options.log.variants = ['info']) && new window.AmauiLog().warn('a').logged,
+          (window.OnesyLog.options.log.variants = ['info']) && new window.OnesyLog().info('a').logged,
+          (window.OnesyLog.options.log.variants = ['info']) && new window.OnesyLog().warn('a').logged,
         ]);
 
         const valueNode = [
-          (AmauiLog.options.log.variants = ['info']) && new AmauiLog().info('a').logged,
-          (AmauiLog.options.log.variants = ['info']) && new AmauiLog().warn('a').logged,
+          (OnesyLog.options.log.variants = ['info']) && new OnesyLog().info('a').logged,
+          (OnesyLog.options.log.variants = ['info']) && new OnesyLog().warn('a').logged,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -124,7 +124,7 @@ group('AmauiLog', () => {
           false
         ]);
 
-        AmauiLog.options.log.enabled = false;
+        OnesyLog.options.log.enabled = false;
       });
 
       group('padding', () => {
@@ -132,14 +132,14 @@ group('AmauiLog', () => {
         to('top', async () => {
           const valueBrowsers = await evaluate((window: any) => {
             return [
-              (window.AmauiLog.options.log.padding.top = true) && window.AmauiLog.info('a').arguments,
-              (window.AmauiLog.options.log.padding.top = false) || window.AmauiLog.info('a').arguments,
+              (window.OnesyLog.options.log.padding.top = true) && window.OnesyLog.info('a').arguments,
+              (window.OnesyLog.options.log.padding.top = false) || window.OnesyLog.info('a').arguments,
             ];
           });
 
           const valueNode = [
-            (AmauiLog.options.log.padding.top = true) && AmauiLog.info('a').arguments,
-            (AmauiLog.options.log.padding.top = false) || AmauiLog.info('a').arguments,
+            (OnesyLog.options.log.padding.top = true) && OnesyLog.info('a').arguments,
+            (OnesyLog.options.log.padding.top = false) || OnesyLog.info('a').arguments,
           ];
 
           valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -170,14 +170,14 @@ group('AmauiLog', () => {
         to('bottom', async () => {
           const valueBrowsers = await evaluate((window: any) => {
             return [
-              (window.AmauiLog.options.log.padding.bottom = true) && window.AmauiLog.info('a').arguments,
-              (window.AmauiLog.options.log.padding.bottom = false) || window.AmauiLog.info('a').arguments,
+              (window.OnesyLog.options.log.padding.bottom = true) && window.OnesyLog.info('a').arguments,
+              (window.OnesyLog.options.log.padding.bottom = false) || window.OnesyLog.info('a').arguments,
             ];
           });
 
           const valueNode = [
-            (AmauiLog.options.log.padding.bottom = true) && AmauiLog.info('a').arguments,
-            (AmauiLog.options.log.padding.bottom = false) || AmauiLog.info('a').arguments,
+            (OnesyLog.options.log.padding.bottom = true) && OnesyLog.info('a').arguments,
+            (OnesyLog.options.log.padding.bottom = false) || OnesyLog.info('a').arguments,
           ];
 
           valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -210,22 +210,22 @@ group('AmauiLog', () => {
       group('variants', () => {
 
         to('all of the options', async () => {
-          AmauiLog.variants.info.prefix = '/';
-          AmauiLog.variants.info.sufix = '/';
-          AmauiLog.variants.info.color = { browser: 'green', server: '34' };
+          OnesyLog.variants.info.prefix = '/';
+          OnesyLog.variants.info.sufix = '/';
+          OnesyLog.variants.info.color = { browser: 'green', server: '34' };
 
           const valueBrowsers = await evaluate((window: any) => {
-            window.AmauiLog.variants.info.prefix = '/';
-            window.AmauiLog.variants.info.sufix = '/';
-            window.AmauiLog.variants.info.color = { browser: 'green', server: '34' };
+            window.OnesyLog.variants.info.prefix = '/';
+            window.OnesyLog.variants.info.sufix = '/';
+            window.OnesyLog.variants.info.color = { browser: 'green', server: '34' };
 
             return [
-              window.AmauiLog.info('a').arguments,
+              window.OnesyLog.info('a').arguments,
             ];
           });
 
           const valueNode = [
-            AmauiLog.info('a').arguments,
+            OnesyLog.info('a').arguments,
           ];
 
           valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -251,16 +251,16 @@ group('AmauiLog', () => {
             to('log', async () => {
               const valueNode = [];
 
-              AmauiLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
+              OnesyLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
 
-              AmauiLog.log('log', 'a');
+              OnesyLog.log('log', 'a');
 
               const valueBrowsers = await evaluate((window: any) => {
                 const values = [];
 
-                window.AmauiLog.variants.log.pre.subscription.subscribe(value => values.push(value));
+                window.OnesyLog.variants.log.pre.subscription.subscribe(value => values.push(value));
 
-                window.AmauiLog.log('log', 'a');
+                window.OnesyLog.log('log', 'a');
 
                 return values;
               });
@@ -275,16 +275,16 @@ group('AmauiLog', () => {
             to('info', async () => {
               const valueNode = [];
 
-              AmauiLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
+              OnesyLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
 
-              AmauiLog.info('a');
+              OnesyLog.info('a');
 
               const valueBrowsers = await evaluate((window: any) => {
                 const values = [];
 
-                window.AmauiLog.variants.log.pre.subscription.subscribe(value => values.push(value));
+                window.OnesyLog.variants.log.pre.subscription.subscribe(value => values.push(value));
 
-                window.AmauiLog.info('a');
+                window.OnesyLog.info('a');
 
                 return values;
               });
@@ -307,16 +307,16 @@ group('AmauiLog', () => {
             to('log', async () => {
               const valueNode = [];
 
-              AmauiLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
+              OnesyLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
 
-              AmauiLog.log('log', 'a');
+              OnesyLog.log('log', 'a');
 
               const valueBrowsers = await evaluate((window: any) => {
                 const values = [];
 
-                window.AmauiLog.variants.log.post.subscription.subscribe(value => values.push(value));
+                window.OnesyLog.variants.log.post.subscription.subscribe(value => values.push(value));
 
-                window.AmauiLog.log('log', 'a');
+                window.OnesyLog.log('log', 'a');
 
                 return values;
               });
@@ -331,16 +331,16 @@ group('AmauiLog', () => {
             to('info', async () => {
               const valueNode = [];
 
-              AmauiLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
+              OnesyLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
 
-              AmauiLog.info('a');
+              OnesyLog.info('a');
 
               const valueBrowsers = await evaluate((window: any) => {
                 const values = [];
 
-                window.AmauiLog.variants.log.post.subscription.subscribe(value => values.push(value));
+                window.OnesyLog.variants.log.post.subscription.subscribe(value => values.push(value));
 
-                window.AmauiLog.info('a');
+                window.OnesyLog.info('a');
 
                 return values;
               });
@@ -359,9 +359,9 @@ group('AmauiLog', () => {
       });
 
       to('variantNames', async () => {
-        const valueBrowsers = await evaluate((window: any) => window.AmauiLog.variantNames,);
+        const valueBrowsers = await evaluate((window: any) => window.OnesyLog.variantNames,);
 
-        const valueNode = AmauiLog.variantNames;
+        const valueNode = OnesyLog.variantNames;
 
         const values = [valueNode, ...valueBrowsers];
 
@@ -369,9 +369,9 @@ group('AmauiLog', () => {
       });
 
       to('variantsDefault', async () => {
-        const valueBrowsers = await evaluate((window: any) => window.AmauiLog.variantsDefault,);
+        const valueBrowsers = await evaluate((window: any) => window.OnesyLog.variantsDefault,);
 
-        const valueNode = AmauiLog.variantsDefault;
+        const valueNode = OnesyLog.variantsDefault;
 
         const values = [valueNode, ...valueBrowsers];
 
@@ -389,11 +389,11 @@ group('AmauiLog', () => {
 
     to('log', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.log('info', 'a').arguments,
+        window.OnesyLog.log('info', 'a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.log('info', 'a').arguments,
+        OnesyLog.log('info', 'a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -414,11 +414,11 @@ group('AmauiLog', () => {
 
     to('debug', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.debug('a').arguments,
+        window.OnesyLog.debug('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.debug('a').arguments,
+        OnesyLog.debug('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -439,11 +439,11 @@ group('AmauiLog', () => {
 
     to('info', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.info('a').arguments,
+        window.OnesyLog.info('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.info('a').arguments,
+        OnesyLog.info('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -466,11 +466,11 @@ group('AmauiLog', () => {
 
       to('warn', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.warn('a').arguments,
+          window.OnesyLog.warn('a').arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.warn('a').arguments,
+          OnesyLog.warn('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -491,11 +491,11 @@ group('AmauiLog', () => {
 
       to('More than 1 arguments', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.warn('a', []).arguments,
+          window.OnesyLog.warn('a', []).arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.warn('a', []).arguments,
+          OnesyLog.warn('a', []).arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -520,11 +520,11 @@ group('AmauiLog', () => {
 
       to('error', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.error('a').arguments,
+          window.OnesyLog.error('a').arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.error('a').arguments,
+          OnesyLog.error('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -545,11 +545,11 @@ group('AmauiLog', () => {
 
       to('More than 1 arguments', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.error('a', []).arguments,
+          window.OnesyLog.error('a', []).arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.error('a', []).arguments,
+          OnesyLog.error('a', []).arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -572,11 +572,11 @@ group('AmauiLog', () => {
 
     to('important', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.important('a').arguments,
+        window.OnesyLog.important('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.important('a').arguments,
+        OnesyLog.important('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -597,32 +597,32 @@ group('AmauiLog', () => {
 
     to('archiveClear', async () => {
       const valueBrowsers = await evaluate((window: any) => {
-        window.AmauiLog.options.log.archive = true;
+        window.OnesyLog.options.log.archive = true;
 
-        window.AmauiLog.info('a');
+        window.OnesyLog.info('a');
 
         const result = [
-          window.AmauiLog.archive.length,
+          window.OnesyLog.archive.length,
         ];
 
-        window.AmauiLog.archiveClear();
+        window.OnesyLog.archiveClear();
 
-        result.push(window.AmauiLog.archive.length);
+        result.push(window.OnesyLog.archive.length);
 
         return result;
       });
 
-      AmauiLog.options.log.archive = true;
+      OnesyLog.options.log.archive = true;
 
-      AmauiLog.info('a');
+      OnesyLog.info('a');
 
       const result = [
-        AmauiLog.archive.length,
+        OnesyLog.archive.length,
       ];
 
-      AmauiLog.archiveClear();
+      OnesyLog.archiveClear();
 
-      result.push(AmauiLog.archive.length);
+      result.push(OnesyLog.archive.length);
 
       const valueNode = result;
 
@@ -635,22 +635,22 @@ group('AmauiLog', () => {
     });
 
     to('reset', async () => {
-      AmauiLog.options.log.variants = ['info'];
+      OnesyLog.options.log.variants = ['info'];
 
       const valueBrowsers = await evaluate((window: any) => {
-        window.AmauiLog.options.log.variants = ['info'];
+        window.OnesyLog.options.log.variants = ['info'];
 
-        window.AmauiLog.reset();
+        window.OnesyLog.reset();
 
         return [
-          window.AmauiLog.options,
-          window.AmauiLog.variants,
+          window.OnesyLog.options,
+          window.OnesyLog.variants,
         ];
       });
 
       const valueNode = [
-        AmauiLog.options,
-        AmauiLog.variants,
+        OnesyLog.options,
+        OnesyLog.variants,
       ];
 
       const values = [valueNode, ...valueBrowsers];
@@ -694,21 +694,21 @@ group('AmauiLog', () => {
 
       to('color', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.color('a', 'blue'),
-          window.AmauiLog.color('a', 'green'),
-          window.AmauiLog.color('a', 'orange'),
-          window.AmauiLog.color('a', 'red'),
-          window.AmauiLog.color('a', 'magenta'),
-          window.AmauiLog.color('a', 'a'),
+          window.OnesyLog.color('a', 'blue'),
+          window.OnesyLog.color('a', 'green'),
+          window.OnesyLog.color('a', 'orange'),
+          window.OnesyLog.color('a', 'red'),
+          window.OnesyLog.color('a', 'magenta'),
+          window.OnesyLog.color('a', 'a'),
         ]);
 
         const valueNode = [
-          AmauiLog.color('a', 'blue'),
-          AmauiLog.color('a', 'green'),
-          AmauiLog.color('a', 'orange'),
-          AmauiLog.color('a', 'red'),
-          AmauiLog.color('a', 'magenta'),
-          AmauiLog.color('a', 'a'),
+          OnesyLog.color('a', 'blue'),
+          OnesyLog.color('a', 'green'),
+          OnesyLog.color('a', 'orange'),
+          OnesyLog.color('a', 'red'),
+          OnesyLog.color('a', 'magenta'),
+          OnesyLog.color('a', 'a'),
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -731,11 +731,11 @@ group('AmauiLog', () => {
 
       to('options', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.color('a', 'a', { browser: 'orange', server: 'orange' }),
+          window.OnesyLog.color('a', 'a', { browser: 'orange', server: 'orange' }),
         ]);
 
         const valueNode = [
-          AmauiLog.color('a', 'a', { browser: 'orange', server: 'orange' }),
+          OnesyLog.color('a', 'a', { browser: 'orange', server: 'orange' }),
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -750,35 +750,35 @@ group('AmauiLog', () => {
 
   });
 
-  group('amauilog', () => {
+  group('onesylog', () => {
 
     group('log', () => {
 
       to('archive', async () => {
         const valueBrowsers = await evaluate((window: any) => {
-          const amauilog = new window.AmauiLog({ log: { archive: true } });
+          const onesylog = new window.OnesyLog({ log: { archive: true } });
 
-          amauilog.info('a');
+          onesylog.info('a');
 
-          amauilog.options.log.archive = false;
+          onesylog.options.log.archive = false;
 
-          amauilog.info('a');
+          onesylog.info('a');
 
           return [
-            amauilog.archive.length,
+            onesylog.archive.length,
           ];
         });
 
-        const amauilog = new AmauiLog({ log: { archive: true } });
+        const onesylog = new OnesyLog({ log: { archive: true } });
 
-        amauilog.info('a');
+        onesylog.info('a');
 
-        amauilog.options.log.archive = false;
+        onesylog.options.log.archive = false;
 
-        amauilog.info('a');
+        onesylog.info('a');
 
         const valueNode = [
-          amauilog.archive.length,
+          onesylog.archive.length,
         ];
 
         const values = [valueNode, ...valueBrowsers];
@@ -789,15 +789,15 @@ group('AmauiLog', () => {
       });
 
       to('enabled', async () => {
-        AmauiLog.options.log.enabled = true;
+        OnesyLog.options.log.enabled = true;
 
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               enabled: true,
             },
           }).info('a').logged,
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               enabled: false,
             },
@@ -805,12 +805,12 @@ group('AmauiLog', () => {
         ]);
 
         const valueNode = [
-          new AmauiLog({
+          new OnesyLog({
             log: {
               enabled: true,
             },
           }).info('a').logged,
-          new AmauiLog({
+          new OnesyLog({
             log: {
               enabled: false,
             },
@@ -827,17 +827,17 @@ group('AmauiLog', () => {
           false
         ]);
 
-        AmauiLog.options.log.enabled = false;
+        OnesyLog.options.log.enabled = false;
       });
 
       to('native', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               native: true,
             },
           }).info('a').method === console.info,
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               native: false,
             },
@@ -845,12 +845,12 @@ group('AmauiLog', () => {
         ]);
 
         const valueNode = [
-          new AmauiLog({
+          new OnesyLog({
             log: {
               native: true,
             },
           }).info('a').method === console.info,
-          new AmauiLog({
+          new OnesyLog({
             log: {
               native: false,
             },
@@ -869,15 +869,15 @@ group('AmauiLog', () => {
       });
 
       to('variants', async () => {
-        AmauiLog.options.log.enabled = true;
+        OnesyLog.options.log.enabled = true;
 
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               variants: ['info'],
             },
           }).info('a').logged,
-          new window.AmauiLog({
+          new window.OnesyLog({
             log: {
               variants: ['info'],
             },
@@ -885,12 +885,12 @@ group('AmauiLog', () => {
         ]);
 
         const valueNode = [
-          new AmauiLog({
+          new OnesyLog({
             log: {
               variants: ['info'],
             },
           }).info('a').logged,
-          new AmauiLog({
+          new OnesyLog({
             log: {
               variants: ['info'],
             },
@@ -907,7 +907,7 @@ group('AmauiLog', () => {
           false
         ]);
 
-        AmauiLog.options.log.enabled = false;
+        OnesyLog.options.log.enabled = false;
       });
 
       group('padding', () => {
@@ -915,14 +915,14 @@ group('AmauiLog', () => {
         to('top', async () => {
           const valueBrowsers = await evaluate((window: any) => {
             return [
-              new window.AmauiLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
-              new window.AmauiLog({ log: { padding: { top: false, bottom: true } } }).info('a').arguments,
+              new window.OnesyLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
+              new window.OnesyLog({ log: { padding: { top: false, bottom: true } } }).info('a').arguments,
             ];
           });
 
           const valueNode = [
-            new AmauiLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
-            new AmauiLog({ log: { padding: { top: false, bottom: true } } }).info('a').arguments,
+            new OnesyLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
+            new OnesyLog({ log: { padding: { top: false, bottom: true } } }).info('a').arguments,
           ];
 
           valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -953,14 +953,14 @@ group('AmauiLog', () => {
         to('bottom', async () => {
           const valueBrowsers = await evaluate((window: any) => {
             return [
-              new window.AmauiLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
-              new window.AmauiLog({ log: { padding: { top: true, bottom: false } } }).info('a').arguments,
+              new window.OnesyLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
+              new window.OnesyLog({ log: { padding: { top: true, bottom: false } } }).info('a').arguments,
             ];
           });
 
           const valueNode = [
-            new AmauiLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
-            new AmauiLog({ log: { padding: { top: true, bottom: false } } }).info('a').arguments,
+            new OnesyLog({ log: { padding: { top: true, bottom: true } } }).info('a').arguments,
+            new OnesyLog({ log: { padding: { top: true, bottom: false } } }).info('a').arguments,
           ];
 
           valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -996,7 +996,7 @@ group('AmauiLog', () => {
 
       to('all of the arguments', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({
+          new window.OnesyLog({
             arguments: {
               pre: ['a'],
               post: ['a'],
@@ -1005,7 +1005,7 @@ group('AmauiLog', () => {
         ]);
 
         const valueNode = [
-          new AmauiLog({
+          new OnesyLog({
             arguments: {
               pre: ['a'],
               post: ['a'],
@@ -1035,7 +1035,7 @@ group('AmauiLog', () => {
 
       to('all of the options', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({
+          new window.OnesyLog({
             variants: {
               info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
             },
@@ -1043,7 +1043,7 @@ group('AmauiLog', () => {
         ]);
 
         const valueNode = [
-          new AmauiLog({
+          new OnesyLog({
             variants: {
               info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
             },
@@ -1073,20 +1073,20 @@ group('AmauiLog', () => {
           to('log', async () => {
             const valueNode = [];
 
-            const amauilog = new AmauiLog();
+            const onesylog = new OnesyLog();
 
-            AmauiLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
+            OnesyLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
 
-            amauilog.info('a');
+            onesylog.info('a');
 
             const valueBrowsers = await evaluate((window: any) => {
               const values = [];
 
-              const amauilog = new window.AmauiLog();
+              const onesylog = new window.OnesyLog();
 
-              window.AmauiLog.variants.log.pre.subscription.subscribe(value => values.push(value));
+              window.OnesyLog.variants.log.pre.subscription.subscribe(value => values.push(value));
 
-              amauilog.info('a');
+              onesylog.info('a');
 
               return values;
             });
@@ -1101,30 +1101,30 @@ group('AmauiLog', () => {
           to('info', async () => {
             const valueNode = [];
 
-            const amauilog = new AmauiLog({
+            const onesylog = new OnesyLog({
               variants: {
                 info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
               },
             });
 
-            AmauiLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
-            amauilog.variants.info.pre.subscription.subscribe(value => valueNode.push(value));
+            OnesyLog.variants.log.pre.subscription.subscribe(value => valueNode.push(value));
+            onesylog.variants.info.pre.subscription.subscribe(value => valueNode.push(value));
 
-            amauilog.info('a');
+            onesylog.info('a');
 
             const valueBrowsers = await evaluate((window: any) => {
               const values = [];
 
-              const amauilog = new window.AmauiLog({
+              const onesylog = new window.OnesyLog({
                 variants: {
                   info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
                 },
               });
 
-              window.AmauiLog.variants.log.pre.subscription.subscribe(value => values.push(value));
-              amauilog.variants.info.pre.subscription.subscribe(value => values.push(value));
+              window.OnesyLog.variants.log.pre.subscription.subscribe(value => values.push(value));
+              onesylog.variants.info.pre.subscription.subscribe(value => values.push(value));
 
-              amauilog.info('a');
+              onesylog.info('a');
 
               return values;
             });
@@ -1148,20 +1148,20 @@ group('AmauiLog', () => {
           to('log', async () => {
             const valueNode = [];
 
-            const amauilog = new AmauiLog();
+            const onesylog = new OnesyLog();
 
-            AmauiLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
+            OnesyLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
 
-            amauilog.log('log', 'a');
+            onesylog.log('log', 'a');
 
             const valueBrowsers = await evaluate((window: any) => {
               const values = [];
 
-              const amauilog = new window.AmauiLog();
+              const onesylog = new window.OnesyLog();
 
-              window.AmauiLog.variants.log.post.subscription.subscribe(value => values.push(value));
+              window.OnesyLog.variants.log.post.subscription.subscribe(value => values.push(value));
 
-              amauilog.log('log', 'a');
+              onesylog.log('log', 'a');
 
               return values;
             });
@@ -1176,30 +1176,30 @@ group('AmauiLog', () => {
           to('info', async () => {
             const valueNode = [];
 
-            const amauilog = new AmauiLog({
+            const onesylog = new OnesyLog({
               variants: {
                 info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
               },
             });
 
-            AmauiLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
-            amauilog.variants.info.post.subscription.subscribe(value => valueNode.push(value));
+            OnesyLog.variants.log.post.subscription.subscribe(value => valueNode.push(value));
+            onesylog.variants.info.post.subscription.subscribe(value => valueNode.push(value));
 
-            amauilog.info('a');
+            onesylog.info('a');
 
             const valueBrowsers = await evaluate((window: any) => {
               const values = [];
 
-              const amauilog = new window.AmauiLog({
+              const onesylog = new window.OnesyLog({
                 variants: {
                   info: { name: 'info', prefix: '/', sufix: '/', color: { browser: 'green', server: '34' } },
                 },
               });
 
-              window.AmauiLog.variants.log.post.subscription.subscribe(value => values.push(value));
-              amauilog.variants.info.post.subscription.subscribe(value => values.push(value));
+              window.OnesyLog.variants.log.post.subscription.subscribe(value => values.push(value));
+              onesylog.variants.info.post.subscription.subscribe(value => values.push(value));
 
-              amauilog.info('a');
+              onesylog.info('a');
 
               return values;
             });
@@ -1222,13 +1222,13 @@ group('AmauiLog', () => {
 
       to('add', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({ date: { add: true } }).info('a').arguments,
-          new window.AmauiLog({ date: { add: false } }).info('a').arguments,
+          new window.OnesyLog({ date: { add: true } }).info('a').arguments,
+          new window.OnesyLog({ date: { add: false } }).info('a').arguments,
         ]);
 
         const valueNode = [
-          new AmauiLog({ date: { add: true } }).info('a').arguments,
-          new AmauiLog({ date: { add: false } }).info('a').arguments,
+          new OnesyLog({ date: { add: true } }).info('a').arguments,
+          new OnesyLog({ date: { add: false } }).info('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1258,11 +1258,11 @@ group('AmauiLog', () => {
 
       to('method', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({ date: { method: () => 4 } }).info('a').arguments,
+          new window.OnesyLog({ date: { method: () => 4 } }).info('a').arguments,
         ]);
 
         const valueNode = [
-          new AmauiLog({ date: { method: () => 4 } }).info('a').arguments,
+          new OnesyLog({ date: { method: () => 4 } }).info('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1287,11 +1287,11 @@ group('AmauiLog', () => {
 
       to('method', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          new window.AmauiLog({ stringify: { method: () => 4 } }).info([1, 4]).arguments,
+          new window.OnesyLog({ stringify: { method: () => 4 } }).info([1, 4]).arguments,
         ]);
 
         const valueNode = [
-          new AmauiLog({ stringify: { method: () => 4 } }).info([1, 4]).arguments,
+          new OnesyLog({ stringify: { method: () => 4 } }).info([1, 4]).arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1319,14 +1319,14 @@ group('AmauiLog', () => {
         error.stack = 'Error: a\n    at <anonymous>:1:24';
 
         return [
-          window.AmauiLog.amauilog.log('info', 'a').arguments,
-          window.AmauiLog.amauilog.log('info', [1, 3, 4]).arguments,
-          window.AmauiLog.amauilog.log('info', 'a', 'a', 'a').arguments,
-          window.AmauiLog.amauilog.log('info', 'a', 'a', 'a', [1, 3, 4], 'a').arguments,
-          window.AmauiLog.amauilog.log('info', [1, 3, 4], 'a', [1, 3, 4]).arguments,
-          window.AmauiLog.amauilog.log('info', [1, 3, 4], 'a', [1, 3, 4], 'a').arguments,
-          window.AmauiLog.amauilog.log('info', [1, 3, 4], [1, { a: 4 }, 4], [1, 3, 4]).arguments,
-          window.AmauiLog.amauilog.log('info', error).arguments,
+          window.OnesyLog.onesylog.log('info', 'a').arguments,
+          window.OnesyLog.onesylog.log('info', [1, 3, 4]).arguments,
+          window.OnesyLog.onesylog.log('info', 'a', 'a', 'a').arguments,
+          window.OnesyLog.onesylog.log('info', 'a', 'a', 'a', [1, 3, 4], 'a').arguments,
+          window.OnesyLog.onesylog.log('info', [1, 3, 4], 'a', [1, 3, 4]).arguments,
+          window.OnesyLog.onesylog.log('info', [1, 3, 4], 'a', [1, 3, 4], 'a').arguments,
+          window.OnesyLog.onesylog.log('info', [1, 3, 4], [1, { a: 4 }, 4], [1, 3, 4]).arguments,
+          window.OnesyLog.onesylog.log('info', error).arguments,
         ];
       });
 
@@ -1335,14 +1335,14 @@ group('AmauiLog', () => {
       error.stack = 'Error: a\n    at <anonymous>:1:24';
 
       const valueNode = [
-        AmauiLog.amauilog.log('info', 'a').arguments,
-        AmauiLog.amauilog.log('info', [1, 3, 4]).arguments,
-        AmauiLog.amauilog.log('info', 'a', 'a', 'a').arguments,
-        AmauiLog.amauilog.log('info', 'a', 'a', 'a', [1, 3, 4], 'a').arguments,
-        AmauiLog.amauilog.log('info', [1, 3, 4], 'a', [1, 3, 4]).arguments,
-        AmauiLog.amauilog.log('info', [1, 3, 4], 'a', [1, 3, 4], 'a').arguments,
-        AmauiLog.amauilog.log('info', [1, 3, 4], [1, { a: 4 }, 4], [1, 3, 4]).arguments,
-        AmauiLog.amauilog.log('info', error).arguments,
+        OnesyLog.onesylog.log('info', 'a').arguments,
+        OnesyLog.onesylog.log('info', [1, 3, 4]).arguments,
+        OnesyLog.onesylog.log('info', 'a', 'a', 'a').arguments,
+        OnesyLog.onesylog.log('info', 'a', 'a', 'a', [1, 3, 4], 'a').arguments,
+        OnesyLog.onesylog.log('info', [1, 3, 4], 'a', [1, 3, 4]).arguments,
+        OnesyLog.onesylog.log('info', [1, 3, 4], 'a', [1, 3, 4], 'a').arguments,
+        OnesyLog.onesylog.log('info', [1, 3, 4], [1, { a: 4 }, 4], [1, 3, 4]).arguments,
+        OnesyLog.onesylog.log('info', error).arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1426,11 +1426,11 @@ group('AmauiLog', () => {
 
     to('debug', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.amauilog.debug('a').arguments,
+        window.OnesyLog.onesylog.debug('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.amauilog.debug('a').arguments,
+        OnesyLog.onesylog.debug('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1451,11 +1451,11 @@ group('AmauiLog', () => {
 
     to('info', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.amauilog.info('a').arguments,
+        window.OnesyLog.onesylog.info('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.amauilog.info('a').arguments,
+        OnesyLog.onesylog.info('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1479,11 +1479,11 @@ group('AmauiLog', () => {
 
       to('warn', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.amauilog.warn('a').arguments,
+          window.OnesyLog.onesylog.warn('a').arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.amauilog.warn('a').arguments,
+          OnesyLog.onesylog.warn('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1504,11 +1504,11 @@ group('AmauiLog', () => {
 
       to('More than 1 arguments', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.amauilog.warn('a', []).arguments,
+          window.OnesyLog.onesylog.warn('a', []).arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.amauilog.warn('a', []).arguments,
+          OnesyLog.onesylog.warn('a', []).arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1533,11 +1533,11 @@ group('AmauiLog', () => {
 
       to('error', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.amauilog.error('a').arguments,
+          window.OnesyLog.onesylog.error('a').arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.amauilog.error('a').arguments,
+          OnesyLog.onesylog.error('a').arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1558,11 +1558,11 @@ group('AmauiLog', () => {
 
       to('More than 1 arguments', async () => {
         const valueBrowsers = await evaluate((window: any) => [
-          window.AmauiLog.amauilog.error('a', []).arguments,
+          window.OnesyLog.onesylog.error('a', []).arguments,
         ]);
 
         const valueNode = [
-          AmauiLog.amauilog.error('a', []).arguments,
+          OnesyLog.onesylog.error('a', []).arguments,
         ];
 
         valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1585,11 +1585,11 @@ group('AmauiLog', () => {
 
     to('important', async () => {
       const valueBrowsers = await evaluate((window: any) => [
-        window.AmauiLog.amauilog.important('a').arguments,
+        window.OnesyLog.onesylog.important('a').arguments,
       ]);
 
       const valueNode = [
-        AmauiLog.amauilog.important('a').arguments,
+        OnesyLog.onesylog.important('a').arguments,
       ];
 
       valueBrowsers.forEach((value: any) => assert(value).eql([
@@ -1610,32 +1610,32 @@ group('AmauiLog', () => {
 
     to('archiveClear', async () => {
       const valueBrowsers = await evaluate((window: any) => {
-        const amauilog = new window.AmauiLog({ log: { archive: true } });
+        const onesylog = new window.OnesyLog({ log: { archive: true } });
 
-        amauilog.info('a');
+        onesylog.info('a');
 
         const result = [
-          amauilog.archive.length,
+          onesylog.archive.length,
         ];
 
-        amauilog.archiveClear();
+        onesylog.archiveClear();
 
-        result.push(amauilog.archive.length);
+        result.push(onesylog.archive.length);
 
         return result;
       });
 
-      const amauilog = new AmauiLog({ log: { archive: true } });
+      const onesylog = new OnesyLog({ log: { archive: true } });
 
-      amauilog.info('a');
+      onesylog.info('a');
 
       const result = [
-        amauilog.archive.length,
+        onesylog.archive.length,
       ];
 
-      amauilog.archiveClear();
+      onesylog.archiveClear();
 
-      result.push(amauilog.archive.length);
+      result.push(onesylog.archive.length);
 
       const valueNode = result;
 
