@@ -1115,6 +1115,14 @@
     "@babel/runtime" "^7.18.3"
     "@onesy/utils" "^1.0.0"
 
+"@onesy/date@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@onesy/date/-/date-1.0.2.tgz#7842854fa6c921ddd50090fad41de55ff1a3bf61"
+  integrity sha512-hukqXXxKXeRxsNYwvx9JNyOTXiMDBGLJI6os9SLx0f7+KPs1RlIoqwwlj50DIRDJgCnSTDtzg4Zk7kDK0qeH2w==
+  dependencies:
+    "@babel/runtime" "^7.18.3"
+    "@onesy/utils" "^1.0.0"
+
 "@onesy/diff@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@onesy/diff/-/diff-1.0.1.tgz#4ded729aad5270a5063c41f2b666edeb1948f078"
@@ -1209,6 +1217,16 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@onesy/utils/-/utils-1.0.0.tgz#93238434bf31965cba96df9930e386e5738f74b6"
   integrity sha512-QJHnTpU1BCmk2GJqeMcOBhXqlQN/OcYsug0hG0iXII+5csQd1UpjXpEE8FlkojKtB6vF66L0WAeVtkr0ZxCtUw==
+  dependencies:
+    "@babel/runtime" "^7.18.3"
+    crypto-js "^4.1.1"
+    path-to-regexp "^6.2.0"
+    uuid "^8.3.2"
+
+"@onesy/utils@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@onesy/utils/-/utils-1.0.7.tgz#f10f264559f1a1ed60a75279186e62cab674b015"
+  integrity sha512-5dcOJve8otK8N90jaZCnUztGPqWN89wgejqQvB8nm8/NFndR5PF9ir204OHNCF8oxGSx+ghUXxx5lgRKcqUN6A==
   dependencies:
     "@babel/runtime" "^7.18.3"
     crypto-js "^4.1.1"
